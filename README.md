@@ -1,6 +1,6 @@
 # Travel-Advisor
 
-Travel Advisor
+Travel Advisor 
 
 1. Project Goal:
   The goal of this project is to create a personalized travel plan consisting of detailed recommendations for the duration of a trip including places to stay, attractions and restaurants. This ensures that the user receives a tailor-made itinerary, recommending options for every meal, place to stay, and activities to explore throughout their trip.
