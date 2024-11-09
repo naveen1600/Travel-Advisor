@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import './HomePage.css';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <div className="home-container">
       <h1>Travel Recommender</h1>
       <label>
         Select Location:

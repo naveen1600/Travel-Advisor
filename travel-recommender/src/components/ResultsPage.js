@@ -1,10 +1,11 @@
-// ResultsPage.js
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import './ResultPage.css';
 
 const ResultsPage = () => {
   const location = useLocation();
-  const { location: userLocation, startDate, endDate, budget } = location.state || {};
+  const navigate = useNavigate();
+  const { location: userLocation } = location.state || {};
 
   const [tab, setTab] = useState('hotels');
 
@@ -21,15 +22,44 @@ const ResultsPage = () => {
     }
   };
 
+  const handleModifySearch = () => {
+    navigate('/');
+  };
+
   return (
-    <div>
-      <h1>Results for {userLocation}</h1>
-      <div>
-        <button onClick={() => setTab('hotels')}>Hotels</button>
-        <button onClick={() => setTab('restaurants')}>Restaurants</button>
-        <button onClick={() => setTab('attractions')}>Attractions</button>
+    <div className="results-container">
+      
+      {/* Navigation bar */}
+      <div className="nav-bar">
+        <div className="tab-buttons">
+          <button
+            onClick={() => setTab('hotels')}
+            className={tab === 'hotels' ? 'active' : ''}
+          >
+            Hotels
+          </button>
+          <button
+            onClick={() => setTab('restaurants')}
+            className={tab === 'restaurants' ? 'active' : ''}
+          >
+            Restaurants
+          </button>
+          <button
+            onClick={() => setTab('attractions')}
+            className={tab === 'attractions' ? 'active' : ''}
+          >
+            Attractions
+          </button>
+        </div>
+        
+        {/* Modify Search button */}
+        <button onClick={handleModifySearch} className="modify-search-button">
+          Modify Search
+        </button>
       </div>
-      <div>{renderContent()}</div>
+      <h1>Results for {userLocation}</h1>
+      {/* Content area */}
+      <div className="tab-content">{renderContent()}</div>
     </div>
   );
 };
