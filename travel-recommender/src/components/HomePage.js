@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-// import './HomePage.css';
+import axios from 'axios';
 import styles from './HomePage.module.css';
 
 // Import the cities.json file
@@ -25,8 +25,6 @@ const HomePage = () => {
     // Extract unique states from citiesData
     const states = [...new Set(citiesData.map((item) => item.state))];
     setStatesList(states);
-
-    // Initially, set the cities list to all cities
     setCitiesList(citiesData);
   }, []);
 
@@ -41,11 +39,25 @@ const HomePage = () => {
     setCity(''); // Reset city selection when state changes
   };
 
-  const handleSearch = () => {
-    navigate('/filter', {
-      state: { city: city, state: state, startDate, endDate, budget }
-    });
-  };
+  const handleNext = async () => {
+    const userInputs = {
+        city: city,
+        state: state,
+        startDate: startDate?.toISOString(),
+        endDate: endDate?.toISOString(),
+        budget: budget,
+    };
+
+    try {
+        const response = await axios.post('http://localhost:5000/process-inputs', userInputs);
+        const { results } = response.data;
+
+        // Navigate to the FilterPage or ResultsPage with the results
+        navigate('/filter', { state: { city, state, results } });
+    } catch (error) {
+        console.error('Error fetching results from the server:', error);
+    }
+};
   
 
   // Handle Logout
@@ -55,13 +67,11 @@ const HomePage = () => {
 
   return (
     <div className={styles.homeContainer}>
-      {/* Navbar */}
       <nav className={styles.navbar}>
         <h1 className={styles.navbarTitle}>Travel Advisor</h1>
         <button className={styles.logoutButton} onClick={handleLogout}>Logout</button>
       </nav>
 
-      {/* Main Content */}
       <div className={styles.formContainer}>
         {/* Dropdown for State */}
         <label>
@@ -102,7 +112,7 @@ const HomePage = () => {
             onChange={(e) => setBudget(e.target.value)}
           />
         </label>
-        <button class = {styles.nextButton} onClick={handleSearch}>Next</button>
+        <button class = {styles.nextButton} onClick={handleNext}>Next</button>
       </div>
     </div>
   );
