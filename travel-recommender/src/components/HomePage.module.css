@@ -1,0 +1,94 @@
+.homeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #333;
+    font-size: 120px;
+    margin-bottom: 20px;
+    margin-left: 630px;
+  }
+
+  .navbar {
+    display: flex;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    width: 100%;
+  }
+
+  .navbarTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-left: 90px;
+  }
+
+  .logoutButton {
+    background-color: cadetblue;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .logoutButton:hover {
+    background-color: rgb(7, 94, 94);
+  }
+  
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 2rem auto;
+    gap: 1rem;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  select,
+  input[type="number"],
+  .react-datepicker-wrapper {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .nextButton {
+    background-color: cadetblue;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    width: 100px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    align-self: center;
+  }
+  
+  button:hover {
+    background-color: rgb(7, 94, 94);
+  }
+
+  .date {
+    width: 270px
+  }
+
+  .budget {
+    width: 10px
+  }
+  

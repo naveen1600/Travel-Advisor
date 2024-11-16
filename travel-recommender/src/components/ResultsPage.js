@@ -1,65 +1,65 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import './ResultPage.css';
+import styles from './ResultsPage.module.css';
 
 const ResultsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { location: userLocation } = location.state || {};
+  const { city, state } = location.state || {};
 
   const [tab, setTab] = useState('hotels');
 
   const renderContent = () => {
     switch (tab) {
       case 'hotels':
-        return <div>List of recommended hotels in {userLocation}</div>;
+        return <div>Popular hotels in {city}, {state}</div>;
       case 'restaurants':
-        return <div>List of recommended restaurants in {userLocation}</div>;
+        return <div>Popular restaurants in {city}, {state}</div>;
       case 'attractions':
-        return <div>List of recommended attractions in {userLocation}</div>;
+        return <div>Popular attractions in {city}, {state}</div>;
       default:
         return null;
     }
   };
 
   const handleModifySearch = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   return (
-    <div className="results-container">
-      
-      {/* Navigation bar */}
-      <div className="nav-bar">
-        <div className="tab-buttons">
+    <div className={styles.resultsContainer}>
+      <div className={styles.navbar}>
+        <div className={styles.tabButtons}>
           <button
             onClick={() => setTab('hotels')}
-            className={tab === 'hotels' ? 'active' : ''}
+            className={tab === 'hotels' ? styles.active : ''}
           >
             Hotels
           </button>
           <button
             onClick={() => setTab('restaurants')}
-            className={tab === 'restaurants' ? 'active' : ''}
+            className={tab === 'restaurants' ? styles.active : ''}
           >
             Restaurants
           </button>
           <button
             onClick={() => setTab('attractions')}
-            className={tab === 'attractions' ? 'active' : ''}
+            className={tab === 'attractions' ? styles.active : ''}
           >
             Attractions
           </button>
         </div>
         
         {/* Modify Search button */}
-        <button onClick={handleModifySearch} className="modify-search-button">
+        <button onClick={handleModifySearch} className={styles.modifySearchButton}>
           Modify Search
         </button>
       </div>
-      <h1>Results for {userLocation}</h1>
+      <div className={styles.resultsHeading}>
+        <h1>Results for {city}, {state}</h1>  {/* Display city and state */}
+      </div>
       {/* Content area */}
-      <div className="tab-content">{renderContent()}</div>
+      <div className={styles.tabContent}>{renderContent()}</div>
     </div>
   );
 };

@@ -1,0 +1,114 @@
+/* FilterPage.module.css */
+.filterPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .navbar {
+    display: flex;
+    /* justify-content: space-between;
+    align-items: center; */
+    /* padding: 10px; */
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    width: 100%;
+  }
+
+  .navbarTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .filterContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%; /*Adjusts the width to control the space between the two sections*/
+    max-width: 100%;
+  }
+  
+  .filterLeft {
+    /* padding-left: 20px; */
+    align-self: center;
+    width: 50%;
+  }
+
+  .filterRight {
+    padding-left: 450px;
+    align-self: center;
+    width: 50%; /*Adjusts width for both sections*/
+  }
+  
+  .checkboxGroup {
+    display: flex;
+    flex-direction: column;
+    /* gap: 8px; */
+    /* background-color: antiquewhite; */
+    width: 400px;
+  }
+  
+  .searchButton, .prevButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: cadetblue;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .searchButton:hover {
+    background-color: rgb(7, 94, 94);
+  }
+
+  .checkboxItem label {
+    /* display: flex; */
+    width: 125px;
+  }
+  
+  .checkboxItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.checkboxItem input[type="checkbox"] {
+  margin-left: -100px;
+}
+
+.buttonGroup {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* .prevButton,
+.searchButton {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.prevButton {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.searchButton {
+  background-color: #4caf50;
+  color: white;
+} */
+
+/* .prevButton:hover,
+.searchButton:hover {
+  opacity: 0.9;
+} */
+  
