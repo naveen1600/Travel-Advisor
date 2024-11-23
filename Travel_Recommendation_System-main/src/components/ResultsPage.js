@@ -7,7 +7,7 @@ import styles from './ResultsPage.module.css';
 const ResultsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { city, state, startDate, endDate, budget, hotelFacilities, restaurantFacilities } = location.state || {};
+  const { city, state, hotelFacilities, restaurantFacilities } = location.state || {};
 
   const [tab, setTab] = useState('hotels');
   const [results, setResults] = useState({

@@ -11,7 +11,7 @@ CORS(app)  # Enable CORS for all routes
 @app.route('/recommendations', methods=['POST'])
 def recommend():
     try:
-        print(f"Request received at: {datetime.datetime.now()}")
+        # print(f"Request received at: {datetime.datetime.now()}")
         # Receive data from the frontend (POST request body)
         data = request.json
         # Extract necessary fields from the received data

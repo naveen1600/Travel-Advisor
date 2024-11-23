@@ -6,7 +6,7 @@ import styles from './FilterPage.module.css';
 const FilterPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { city, state, startDate, endDate, budget } = location.state || {};
+  const { city, state } = location.state || {};
   const [selectedHotelFacilities, setSelectedHotelFacilities] = useState([]);
   const [selectedRestaurantFacilities, setSelectedRestaurantFacilities] = useState({
     booleanFacilities: [],
@@ -36,9 +36,9 @@ const FilterPage = () => {
     const payload = {
       city,
       state,
-      startDate,
-      endDate,
-      budget,
+      // startDate,
+      // endDate,
+      // budget,
       hotelFacilities: selectedHotelFacilities,
       restaurantFacilities: {
         boolean: selectedRestaurantFacilities.booleanFacilities,

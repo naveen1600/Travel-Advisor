@@ -14,9 +14,9 @@ const HomePage = () => {
   // State variables
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [budget, setBudget] = useState('');
+  // const [startDate, setStartDate] = useState(null);
+  // const [endDate, setEndDate] = useState(null);
+  // const [budget, setBudget] = useState('');
   const [statesList, setStatesList] = useState([]);
   const [citiesList, setCitiesList] = useState([]);
 
@@ -43,9 +43,9 @@ const HomePage = () => {
     const userInputs = {
         city: city,
         state: state,
-        startDate: startDate?.toISOString(),
-        endDate: endDate?.toISOString(),
-        budget: budget,
+        // startDate: startDate?.toISOString(),
+        // endDate: endDate?.toISOString(),
+        // budget: budget,
     };
 
     // try {
@@ -97,7 +97,7 @@ const HomePage = () => {
           </select>
         </label>
 
-        <label>
+        {/* <label>
           Travel Start Date:
           <DatePicker className={styles.date} selected={startDate} onChange={(date) => setStartDate(date)} />
         </label>
@@ -113,7 +113,7 @@ const HomePage = () => {
             value={budget}
             onChange={(e) => setBudget(e.target.value)}
           />
-        </label>
+        </label> */}
         <button class = {styles.nextButton} onClick={handleNext}>Next</button>
       </div>
     </div>
