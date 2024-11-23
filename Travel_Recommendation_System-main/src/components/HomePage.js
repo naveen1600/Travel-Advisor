@@ -79,7 +79,7 @@ const HomePage = () => {
         <label>
           Select State:
           <select value={state} onChange={handleStateChange}>
-            <option value="">Select a state</option>
+            <option value="">Select</option>
             {statesList.map((stateName, index) => (
               <option key={index} value={stateName}>{stateName}</option>
             ))}
@@ -90,7 +90,7 @@ const HomePage = () => {
         <label>
           Select City:
           <select value={city} onChange={(e) => setCity(e.target.value)}>
-            <option value="">Select a city</option>
+            <option value="">Select</option>
             {citiesList.map((cityObj, index) => (
               <option key={index} value={cityObj.city}>{cityObj.city}</option>
             ))}

@@ -1,8 +1,6 @@
 #  {'boolean': ['ByAppointmentOnly', 'Open24Hours'], 'dropdown': {'BusinessParking': 'garage', 'Ambience': 'trendy', 'cuisine': 'cambodian'}}
 
 def get_restaurant_recommendations(user_state, user_city, restaurant_facilities):
-
-    # Import required libraries
     import pandas as pd
     import numpy as np
     from sklearn.cluster import KMeans
@@ -20,7 +18,7 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
 
     weights = {
     "BusinessParking": 1,
-    "BusinessAcceptsCreditCards": 1,
+    "AcceptsCreditCards": 1,
     "Ambience": 2,
     "DogsAllowed": 1,
     "Open24Hours": 1,
@@ -34,9 +32,8 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
     "city_state" : 5
     }
 
-    # List of attributes for clustering
     attributes = [
-        "BusinessParking", "BusinessAcceptsCreditCards", "Ambience", "DogsAllowed",
+        "BusinessParking", "AcceptsCreditCards", "Ambience", "DogsAllowed",
         "Open24Hours", "ByAppointmentOnly", "GoodForKids", "Alcohol",
         "price", "WheelchairAccessible", "DriveThru", "cuisine", "city_state"
     ]
@@ -68,7 +65,7 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
 
     # Ensure boolean columns are converted to integers (0 or 1)
     boolean_columns = [
-        "BusinessAcceptsCreditCards", "DogsAllowed", "Open24Hours", "ByAppointmentOnly",
+        "AcceptsCreditCards", "DogsAllowed", "Open24Hours", "ByAppointmentOnly",
         "GoodForKids", "Alcohol", "WheelchairAccessible", "DriveThru"
     ]
     data[boolean_columns] = data[boolean_columns].astype(int)
@@ -103,7 +100,7 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
 
     user_defaults = {
     "BusinessParking": ["validated", "garage", "lot", "valet", "street"],
-    "BusinessAcceptsCreditCards": False,
+    "AcceptsCreditCards": False,
     "Ambience": ["classy", "romantic", "upscale", "hipster", "trendy", "casual", "touristy", "intimate", "divey"],
     "DogsAllowed": False,
     "Open24Hours": False,
@@ -176,7 +173,7 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
 
     # Ensure boolean columns are converted to integers (0 or 1)
     boolean_columns = [
-        "BusinessAcceptsCreditCards", "DogsAllowed", "Open24Hours", "ByAppointmentOnly",
+        "AcceptsCreditCards", "DogsAllowed", "Open24Hours", "ByAppointmentOnly",
         "GoodForKids", "Alcohol", "WheelchairAccessible", "DriveThru"
     ]
     data[boolean_columns] = data[boolean_columns].astype(int)
@@ -213,9 +210,10 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
     distances, indices = knn.kneighbors(final_user_data_1_df)
 
     flattened_data = pd.read_json('flattened_restaurant_details.json')
-    
+    # print(flattened_data.iloc[indices[0]])
     # For multiple rows
     result = flattened_data.iloc[indices[0]].to_dict(orient='records')
     return result
+
 
 

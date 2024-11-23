@@ -25,7 +25,7 @@ const ResultsPage = () => {
           hotelFacilities,
           restaurantFacilities
         });
-        console.log("Hotel recommendations:", response.data);
+        // console.log("Hotel recommendations:", response.data);
 
         // Set the results returned from the backend (only hotels in this case)
         setResults({
@@ -85,8 +85,14 @@ const ResultsPage = () => {
                     <div className={styles.hotelCard} key={index}>
                       <h3 className={styles.hotelName}>{restaurant.name}</h3>
                       <div className={styles.hotelDetails}>
-                        <p><strong>Address:</strong> {restaurant.address}, {restaurant.city}, {restaurant.state}</p>
-                        <p><strong>Rating:</strong> {restaurant.stars}</p>
+                        <p><strong>Address: </strong> {restaurant.address}, {restaurant.city}, {restaurant.state}</p> 
+                        {restaurant.cuisine && restaurant.cuisine.length > 0 && (
+                          <p><strong>Cuisine: </strong> 
+                            {restaurant.cuisine.map((item, index) => (
+                              <span key={index}>{item}{index < restaurant.cuisine.length - 1 && ', '}</span>
+                            ))}
+                          </p>
+                        )}
                       </div>
                     </div>
                   ))}

@@ -16,7 +16,7 @@ const FilterPage = () => {
   const hotelFacilities = ["Spa","Airport shuttle","Business Center","Contactless check","Pool","Pet friendly","Free Wifi","Wheel-chair accessible","Complementary breakfast","Fitness Center","24 hr front desk","Valet Parking","Open bar","smoking"];
   const restaurantFacilities = {
     booleanFacilities: [
-      "BusinessAcceptsCreditCards", "DogsAllowed", "Open24Hours", "ByAppointmentOnly", "GoodForKids", "Alcohol", 
+      "AcceptsCreditCards", "DogsAllowed", "Open24Hours", "ByAppointmentOnly", "GoodForKids", "Alcohol", 
       "WheelchairAccessible", "DriveThru",
     ],
     dropdownFacilities: {
@@ -45,13 +45,14 @@ const FilterPage = () => {
         dropdown: selectedRestaurantFacilities.dropdownFacilities,
       },
     };
-    try {
-      const response = await axios.post('http://localhost:5000/process-inputs', payload);
-      const results = response.data; // Assume this contains the ML results
-      navigate('/results', { state: { results, city, state } });
-    } catch (error) {
-      console.error('Error fetching results:', error);
-    }
+    navigate('/results', { state: payload });
+    // try {
+    //   const response = await axios.post('http://localhost:5000/process-inputs', payload);
+    //   const results = response.data; // Assume this contains the ML results
+    //   navigate('/results', { state: { results, city, state } });
+    // } catch (error) {
+    //   console.error('Error fetching results:', error);
+    // }
   };
 
   const handleFacilityChange = (facility, value, type, isDropdown = false) => {
@@ -117,6 +118,7 @@ const FilterPage = () => {
                       handleFacilityChange(facility, e.target.value, "restaurant", true)
                     }
                   >
+                  <option value="">Select</option>
                     {options.map((option, optIndex) => (
                       <option key={optIndex} value={option}>
                         {option}
