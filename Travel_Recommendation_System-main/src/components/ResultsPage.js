@@ -86,10 +86,10 @@ const ResultsPage = () => {
                       <h3 className={styles.hotelName}>{restaurant.name}</h3>
                       <div className={styles.hotelDetails}>
                         <p><strong>Address: </strong> {restaurant.address}, {restaurant.city}, {restaurant.state}</p> 
-                        {restaurant.cuisine && restaurant.cuisine.length > 0 && (
+                        {restaurant.Cuisine && restaurant.Cuisine.length > 0 && (
                           <p><strong>Cuisine: </strong> 
-                            {restaurant.cuisine.map((item, index) => (
-                              <span key={index}>{item}{index < restaurant.cuisine.length - 1 && ', '}</span>
+                            {restaurant.Cuisine.map((item, index) => (
+                              <span key={index}>{item}{index < restaurant.Cuisine.length - 1 && ', '}</span>
                             ))}
                           </p>
                         )}
@@ -104,14 +104,31 @@ const ResultsPage = () => {
           );
         case 'attractions':
           return (
-            <div>
-              <h2>Popular Attractions in {city}, {state}</h2>
+            <div className={styles.hotelList}>
+              <h2 className={styles.hotelHeading}>Popular Attractions in {city}, {state}</h2>
               {results.attractions.length > 0 ? (
-                <ul>
+                // <ul>
+                //   {results.attractions.map((attraction, index) => (
+                //     <li key={index}>{attraction}</li>
+                //   ))}
+                // </ul>
+
+                <div className={styles.hotelCards}>
                   {results.attractions.map((attraction, index) => (
-                    <li key={index}>{attraction}</li>
+                    <div className={styles.hotelCard} key={index}>
+                      <h3 className={styles.hotelName}>{attraction.Attraction}</h3>
+                      <div className={styles.hotelDetails}>
+                        <p><strong>Rating:</strong> {attraction.Rating}</p>
+                        <p><strong>Address:</strong> {attraction.Address}</p>
+                        {/* <p><strong>Website:</strong> 
+                          <a href={attraction.IMG} target="_blank" rel="noopener noreferrer">
+                            {hotel.HotelWebsite}
+                          </a>
+                        </p> */}
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               ) : (
                 <p>No attractions found.</p>
               )}

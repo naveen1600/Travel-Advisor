@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS  # To handle CORS issues between frontend and backend
 from hotelModel import hybrid_recommendation  # Import recommendation logic
 from restaurantKNN import get_restaurant_recommendations # Import recommendation logic
-# from rbm import get_attraction_recommendations
+from rbm import get_recommendations
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -18,15 +18,17 @@ def recommend():
         city = data.get('city', '')  # Convert city to lowercase to match dataset
         state = data.get('state', '')  # Convert state to lowercase to match dataset
         hotel_facilities = data.get('hotelFacilities', [])
-        print("HOTEL FACILITIES:", hotel_facilities)
+        # print("HOTEL FACILITIES:", hotel_facilities)
         restaurant_facilities = data.get('restaurantFacilities', [])
         
         # Get hotel recommendations based on the user input
         hotel_recommendations = hybrid_recommendation(state, city, hotel_facilities)
         restaurant_recommendations = get_restaurant_recommendations(state, city, restaurant_facilities)
+        attraction_recommendations = get_recommendations(state, city)
         recommendations = {
             'hotels': hotel_recommendations,
-            'restaurants': restaurant_recommendations
+            'restaurants': restaurant_recommendations,
+            'attractions': attraction_recommendations
         }
         # print("Recommendations:", restaurant_recommendations)
         # Return the recommendations as JSON

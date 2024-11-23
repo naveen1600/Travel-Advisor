@@ -17,32 +17,32 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
     data['city_state'] = data['city'] + ', ' + data['state']
 
     weights = {
-    "BusinessParking": 1,
-    "AcceptsCreditCards": 1,
+    "Parking": 1,
+    "Accepts Credit Cards": 1,
     "Ambience": 2,
-    "DogsAllowed": 1,
-    "Open24Hours": 1,
-    "ByAppointmentOnly": 1,
-    "GoodForKids": 1,
+    "Dogs Allowed": 1,
+    "Open 24 Hours": 1,
+    "Appointment Only": 1,
+    "Good For Kids": 1,
     "Alcohol": 1,
-    "price": 1,
-    "WheelchairAccessible": 1,
-    "DriveThru": 1,
-    "cuisine": 3,
+    "Price": 1,
+    "Wheel-chair Accessible": 1,
+    "Drive Thru": 1,
+    "Cuisine": 3,
     "city_state" : 5
     }
 
     attributes = [
-        "BusinessParking", "AcceptsCreditCards", "Ambience", "DogsAllowed",
-        "Open24Hours", "ByAppointmentOnly", "GoodForKids", "Alcohol",
-        "price", "WheelchairAccessible", "DriveThru", "cuisine", "city_state"
+        "Parking", "Accepts Credit Cards", "Ambience", "Dogs Allowed",
+        "Open 24 Hours", "Appointment Only", "Good For Kids", "Alcohol",
+        "Price", "Wheel-chair Accessible", "Drive Thru", "Cuisine", "city_state"
     ]
 
     # Filter the dataset to include only the required attributes
     data = data[attributes]
 
     # Handle missing values for list columns (convert None or NaN to empty lists)
-    list_columns = ["BusinessParking", "Ambience", "cuisine"]
+    list_columns = ["Parking", "Ambience", "Cuisine"]
     for col in list_columns:
         data[col] = data[col].apply(lambda x: x if isinstance(x, list) else [])
 
@@ -65,13 +65,13 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
 
     # Ensure boolean columns are converted to integers (0 or 1)
     boolean_columns = [
-        "AcceptsCreditCards", "DogsAllowed", "Open24Hours", "ByAppointmentOnly",
-        "GoodForKids", "Alcohol", "WheelchairAccessible", "DriveThru"
+        "Accepts Credit Cards", "Dogs Allowed", "Open 24 Hours", "Appointment Only",
+        "Good For Kids", "Alcohol", "Wheel-chair Accessible", "Drive Thru"
     ]
     data[boolean_columns] = data[boolean_columns].astype(int)
 
     # Extract and include the numeric column 'price'
-    numeric_column = ["price"]
+    numeric_column = ["Price"]
 
     # Apply weights to the encoded features
     # Multiply each encoded feature by the corresponding weight
@@ -83,7 +83,7 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
         data[col] *= weights.get(col, 1)  # Use weight from the dictionary, default to 1 if not found
     
     # Apply weights to the numeric column 'price'
-    data[numeric_column] *= weights.get("price", 1)
+    data[numeric_column] *= weights.get("Price", 1)
     
     # Apply weight to 'city_state' one-hot encoding
     city_state_encoded *= weights.get("city_state", 1)
@@ -99,18 +99,18 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
     knn.fit(final_data)
 
     user_defaults = {
-    "BusinessParking": ["validated", "garage", "lot", "valet", "street"],
-    "AcceptsCreditCards": False,
+    "Parking": ["validated", "garage", "lot", "valet", "street"],
+    "Accepts Credit Cards": False,
     "Ambience": ["classy", "romantic", "upscale", "hipster", "trendy", "casual", "touristy", "intimate", "divey"],
-    "DogsAllowed": False,
-    "Open24Hours": False,
-    "ByAppointmentOnly": False,
-    "GoodForKids": False,
+    "Dogs Allowed": False,
+    "Open 24 Hours": False,
+    "Appointment Only": False,
+    "Good For Kids": False,
     "Alcohol": False,
-    "price": 2,
-    "WheelchairAccessible": False,
-    "DriveThru": False,
-    "cuisine": ['middle eastern', 'hawaiian', 'french', 'chinese', 'filipino', 'american', 'brazilian', 'japanese curry', 'portuguese', 'afghan', 'burmese', 'singaporean', 'new mexican cuisine', 'moroccan', 'cambodian', 'mexican', 'ethiopian', 'indonesian', 'spanish', 'turkish', 'armenian', 'caribbean', 'german', 'ukrainian', 'japanese', 'austrian', 'polish', 'australian', 'syrian', 'cuban', 'bangladeshi', 'peruvian', 'mediterranean', 'egyptian', 'georgian', 'korean', 'italian', 'latin american', 'indian', 'scottish', 'cajun/creole', 'irish', 'himalayan/nepalese', 'hungarian', 'traditional chinese medicine', 'soul food', 'greek', 'mongolian', 'russian', 'vietnamese', 'thai', 'irish pub', 'african', 'south african', 'lebanese', 'malaysian', 'pakistani', 'israeli', 'belgian', 'cantonese', 'uzbek'],
+    "Price": 2,
+    "Wheel-chair Accessible": False,
+    "Drive Thru": False,
+    "Cuisine": ['middle eastern', 'hawaiian', 'french', 'chinese', 'filipino', 'american', 'brazilian', 'japanese curry', 'portuguese', 'afghan', 'burmese', 'singaporean', 'new mexican cuisine', 'moroccan', 'cambodian', 'mexican', 'ethiopian', 'indonesian', 'spanish', 'turkish', 'armenian', 'caribbean', 'german', 'ukrainian', 'japanese', 'austrian', 'polish', 'australian', 'syrian', 'cuban', 'bangladeshi', 'peruvian', 'mediterranean', 'egyptian', 'georgian', 'korean', 'italian', 'latin american', 'indian', 'scottish', 'cajun/creole', 'irish', 'himalayan/nepalese', 'hungarian', 'traditional chinese medicine', 'soul food', 'greek', 'mongolian', 'russian', 'vietnamese', 'thai', 'irish pub', 'african', 'south african', 'lebanese', 'malaysian', 'pakistani', 'israeli', 'belgian', 'cantonese', 'uzbek'],
     "city_state" : ""
     }
 
@@ -152,7 +152,7 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
     ################# Encoding User input ###################3
     data = pd.DataFrame([user_input_filled])
 
-    list_columns = ["BusinessParking", "Ambience", "cuisine"]
+    list_columns = ["Parking", "Ambience", "Cuisine"]
 
     # MultiLabelBinarizer for element-wise encoding of list columns
     mlb = MultiLabelBinarizer()
@@ -173,13 +173,13 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
 
     # Ensure boolean columns are converted to integers (0 or 1)
     boolean_columns = [
-        "AcceptsCreditCards", "DogsAllowed", "Open24Hours", "ByAppointmentOnly",
-        "GoodForKids", "Alcohol", "WheelchairAccessible", "DriveThru"
+        "Accepts Credit Cards", "Dogs Allowed", "Open 24 Hours", "Appointment Only",
+        "Good For Kids", "Alcohol", "Wheel-chair Accessible", "Drive Thru"
     ]
     data[boolean_columns] = data[boolean_columns].astype(int)
 
     # Extract and include the numeric column 'price'
-    numeric_column = ["price"]
+    numeric_column = ["Price"]
 
     # Apply weights to the encoded features
     # Multiply each encoded feature by the corresponding weight
@@ -191,7 +191,7 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
         data[col] *= weights.get(col, 1)  # Use weight from the dictionary, default to 1 if not found
     
     # Apply weights to the numeric column 'price'
-    data[numeric_column] *= weights.get("price", 1)
+    data[numeric_column] *= weights.get("Price", 1)
     
     # Apply weight to 'city_state' one-hot encoding
     city_state_encoded *= weights.get("city_state", 1)

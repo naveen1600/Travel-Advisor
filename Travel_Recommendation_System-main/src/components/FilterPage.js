@@ -16,13 +16,13 @@ const FilterPage = () => {
   const hotelFacilities = ["Spa","Airport shuttle","Business Center","Contactless check","Pool","Pet friendly","Free Wifi","Wheel-chair accessible","Complementary breakfast","Fitness Center","24 hr front desk","Valet Parking","Open bar","smoking"];
   const restaurantFacilities = {
     booleanFacilities: [
-      "AcceptsCreditCards", "DogsAllowed", "Open24Hours", "ByAppointmentOnly", "GoodForKids", "Alcohol", 
-      "WheelchairAccessible", "DriveThru",
+      "Accepts Credit Cards", "Dogs Allowed", "Open 24 Hours", "Appointment Only", "Good For Kids", "Alcohol", 
+      "Wheel-chair Accessible", "Drive Thru",
     ],
     dropdownFacilities: {
-      BusinessParking: ["validated", "garage", "lot", "valet", "street"],
+      Parking: ["validated", "garage", "lot", "valet", "street"],
       Ambience: ["classy", "romantic", "upscale", "hipster", "trendy", "casual", "touristy", "intimate", "divey"],
-      cuisine: ["middle eastern", "hawaiian", "french", "chinese", "filipino", "american", "brazilian", "japanese curry",
+      Cuisine: ["middle eastern", "hawaiian", "french", "chinese", "filipino", "american", "brazilian", "japanese curry",
         "portuguese", "afghan", "burmese", "singaporean", "new mexican cuisine", "moroccan", "cambodian", "mexican",
         "ethiopian", "indonesian", "spanish", "turkish", "armenian", "caribbean", "german", "ukrainian", "japanese", "austrian",
         "polish", "australian", "syrian", "cuban", "bangladeshi", "peruvian", "mediterranean", "egyptian", "georgian", "korean",
