@@ -5,7 +5,7 @@ import styles from './LoginPage.module.css';
 const LoginPage = () => {
     const navigate = useNavigate();
     const allowedUsers = [
-        { username: 'vidya', password: 'vidya' }
+        { username: 'user', password: 'user' }
         // { username: '', password: 'password2' },
     ];
     const [username, setUsername] = useState('');

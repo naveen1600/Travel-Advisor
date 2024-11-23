@@ -1,5 +1,3 @@
-# from flask import Flask, request, jsonify
-# from flask_cors import CORS
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
@@ -10,28 +8,20 @@ from tensorflow.keras.optimizers import Adam
 from sklearn.metrics import mean_squared_error, r2_score
 from tensorflow.keras.callbacks import EarlyStopping
 
-
-# app = Flask(__name__)
-# CORS(app)
-
 def get_recommendations(state, city, dataset_path='tourist_attractions.csv'):
     # Load your tourist attractions dataset
     tourist_df = pd.read_csv(dataset_path)
     
-
     # Check for leading/trailing spaces in column names
     tourist_df.columns = tourist_df.columns.str.strip()
 
     # Ensure 'City' column exists in the dataset
-    # if 'City' not in tourist_df.columns:
-    #     raise KeyError("The dataset must include a 'City' column.")
-
-    # Create a combined 'State_City' column
-    # tourist_df['State_City'] = tourist_df['State'] + ', ' + tourist_df['City']
+    if 'City' not in tourist_df.columns:
+        raise KeyError("The dataset must include a 'City' column.")
 
     # Create a user-item interaction matrix using State and City as combined index (users)
     user_attractions_matrix = tourist_df.pivot_table(
-        index='State',  # Use State and City as combined index
+        index='State',  
         columns='Attraction',  # Attractions as items
         values='Rating',  # Rating as interaction level
         aggfunc='mean'
@@ -100,7 +90,7 @@ def get_recommendations(state, city, dataset_path='tourist_attractions.csv'):
     history = model.fit(
         [X_train_user_input, X_train_item_input], 
         y_train, 
-        epochs=200,  # Increased epochs
+        epochs=100,  # Increased epochs
         batch_size=64,  # Adjusted batch size for better learning
         validation_data=([X_test_user_input, X_test_item_input], y_test), 
         callbacks=[early_stopping]
@@ -115,28 +105,30 @@ def get_recommendations(state, city, dataset_path='tourist_attractions.csv'):
     print(f'Mean Squared Error: {mse}')
     print(f'R-squared: {r2}')
     
-
     # Define the number of top recommendations
     top_n = 5
 
-    # Check if the state and city combination exists in the data
-    state_city_input = f"{state}"
-    if state_city_input in user_attractions_matrix.index:
-        user_index = np.where(user_ids == state_city_input)[0][0]
-        state_city_ratings = user_attractions_matrix_scaled[user_index, :].reshape(1, -1)
-        
-        # Get predictions for the state and city
+    # Check if the state exists in the data
+    if state in user_attractions_matrix.index:
+        user_index = np.where(user_ids == state)[0][0]
         state_city_predictions = model.predict([np.full(len(item_indices), user_index), item_indices])
-        
-        # Filter predictions to include only relevant attractions from the specified state and city
-        relevant_attractions = tourist_df[(tourist_df['State'] == state)]['Attraction']
-        relevant_attraction_indices = [item_ids.tolist().index(attraction) for attraction in relevant_attractions if attraction in item_ids]
-        state_city_recommendations = [item_ids[idx] for idx in state_city_predictions.flatten().argsort()[::-1] if idx in relevant_attraction_indices][:top_n]
-        
-        print(state_city_recommendations)
-        return state_city_recommendations
+
+        # Get the top recommendations
+        sorted_indices = state_city_predictions.flatten().argsort()[::-1]
+        recommended_items = [
+            {
+                "Attraction": item_ids[idx],
+                "Address": tourist_df[tourist_df['Attraction'] == item_ids[idx]]['Address'].values[0],
+                "Rating": tourist_df[tourist_df['Attraction'] == item_ids[idx]]['Rating'].values[0]
+            }
+            for idx in sorted_indices[:top_n]
+        ]
+
+        # Sort the recommended items by rating
+        recommended_items = sorted(recommended_items, key=lambda x: x['Rating'], reverse=True)
+
+        return recommended_items
     else:
-        print(f"State '{state}' and City '{city}' combination not found in the dataset.")
         return []
 
 # @app.route('/recommendations', methods=['POST'])

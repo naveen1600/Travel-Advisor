@@ -102,40 +102,32 @@ const ResultsPage = () => {
               )}
             </div>
           );
-        case 'attractions':
-          return (
-            <div className={styles.hotelList}>
-              <h2 className={styles.hotelHeading}>Popular Attractions in {city}, {state}</h2>
-              {results.attractions.length > 0 ? (
-                // <ul>
-                //   {results.attractions.map((attraction, index) => (
-                //     <li key={index}>{attraction}</li>
-                //   ))}
-                // </ul>
-
-                <div className={styles.hotelCards}>
-                  {results.attractions.map((attraction, index) => (
-                    <div className={styles.hotelCard} key={index}>
-                      <h3 className={styles.hotelName}>{attraction.Attraction}</h3>
-                      <div className={styles.hotelDetails}>
-                        <p><strong>Rating:</strong> {attraction.Rating}</p>
-                        <p><strong>Address:</strong> {attraction.Address}</p>
-                        {/* <p><strong>Website:</strong> 
-                          <a href={attraction.IMG} target="_blank" rel="noopener noreferrer">
-                            {hotel.HotelWebsite}
-                          </a>
-                        </p> */}
+          case 'attractions':
+            return (
+              <div className={styles.hotelList}>
+                <h2 className={styles.hotelHeading}>Popular Attractions in {city}, {state}</h2>
+                {results.attractions.length > 0 ? (
+                  <div className={styles.hotelCards}>
+                    {results.attractions 
+                    .sort((a, b) => b.rating - a.rating) 
+                    .slice(0, 5)
+                    .map((attraction, index) => (
+                      <div className={styles.hotelCard} key={index}>
+                        <h3 className={styles.hotelName}>{attraction.Attraction}</h3>
+                        <div className={styles.hotelDetails}>
+                          <p><strong>Rating:</strong> {attraction.Rating}</p>
+                          <p><strong>Address:</strong> {attraction.Address}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p>No attractions found.</p>
-              )}
-            </div>
-          );
-        default:
-          return null;
+                    ))}
+                  </div>
+                ) : (
+                      <p>No attractions found.</p>
+                    )}
+                  </div>
+            );
+          default:
+            return null;
       }
     }
   };
