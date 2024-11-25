@@ -11,7 +11,7 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
 
 
     # Load the dataset
-    file_path = "flattened_restaurant_details.json"
+    file_path = "filtered_restaurants.json"
     data = pd.read_json(file_path)
 
     data['city_state'] = data['city'] + ', ' + data['state']
@@ -95,7 +95,7 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
     pd.set_option('display.max_columns', None)
 
     # KNN
-    knn = NearestNeighbors(n_neighbors=5, metric='euclidean')
+    knn = NearestNeighbors(n_neighbors=8, metric='euclidean')
     knn.fit(final_data)
 
     user_defaults = {
@@ -209,10 +209,10 @@ def get_restaurant_recommendations(user_state, user_city, restaurant_facilities)
 
     distances, indices = knn.kneighbors(final_user_data_1_df)
 
-    flattened_data = pd.read_json('flattened_restaurant_details.json')
+    flattened_data = pd.read_json('filtered_restaurants.json')
     # print(flattened_data.iloc[indices[0]])
     # For multiple rows
-    result = flattened_data.iloc[indices[0]].to_dict(orient='records')
+    result = flattened_data.iloc[indices[0]].sort_values(by='average_sentiment_score', ascending=False).head(5).to_dict(orient='records')
     return result
 
 

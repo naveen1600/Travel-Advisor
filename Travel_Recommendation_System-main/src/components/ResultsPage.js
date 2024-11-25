@@ -68,7 +68,7 @@ const ResultsPage = () => {
                   ))}
                 </div>
               ) : (
-                <p>No hotels found.</p>
+                <p>Loading hotels...</p>
               )}
             </div>
           );
@@ -78,7 +78,7 @@ const ResultsPage = () => {
         case 'restaurants':
           return (
             <div className={styles.hotelList}>
-              <h2 className={styles.hotelHeading}>Popular Restaurants in {city}, {state}</h2>
+              <h2 className={styles.hotelHeading}>Popular Restaurants</h2>
               {results.restaurants.length > 0 ? (
                 <div className={styles.hotelCards}>
                   {results.restaurants.map((restaurant, index) => (
@@ -98,14 +98,14 @@ const ResultsPage = () => {
                   ))}
                 </div>
               ) : (
-                <p>No restaurants found.</p>
+                <p>Loading restaurants...</p>
               )}
             </div>
           );
           case 'attractions':
             return (
               <div className={styles.hotelList}>
-                <h2 className={styles.hotelHeading}>Popular Attractions in {city}, {state}</h2>
+                <h2 className={styles.hotelHeading}>Popular Attractions</h2>
                 {results.attractions.length > 0 ? (
                   <div className={styles.hotelCards}>
                     {results.attractions 
@@ -122,7 +122,7 @@ const ResultsPage = () => {
                     ))}
                   </div>
                 ) : (
-                      <p>No attractions found.</p>
+                      <p>Loading attractions...</p>
                     )}
                   </div>
             );
